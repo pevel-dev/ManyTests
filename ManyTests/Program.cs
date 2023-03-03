@@ -1,10 +1,10 @@
-﻿
-namespace ManyTests;
+﻿namespace ManyTests;
 
-public  class TestMethods
+public class Program
 {
-    public void TestMethod()
+    public static void Main()
     {
-        throw new NotImplementedException();
+        // Добавить вызов тестов
+        return;
     }
 }
