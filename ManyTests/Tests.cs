@@ -22,8 +22,12 @@ public class Tests
     }
 
     [Test]
-    public void DoubleEnumerable()
+    public void DoubleEnumerable<T>(Func<IEnumerable<T>, IEnumerable<T>> testMethod)
     {
-        throw new NotImplementedException();
+        var fakeEnumerable = new FakeEnumerable<T>();
+        testMethod(fakeEnumerable);
+        if (fakeEnumerable.EnumerationCount > 1)
+            Assert.Fail("Double enumeration!");
+        Assert.Pass();
     }
 }
