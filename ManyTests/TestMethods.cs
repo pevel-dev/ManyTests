@@ -1,10 +1,19 @@
 ﻿
 namespace ManyTests;
 
-public  class TestMethods
+public static class TestMethods
 {
-    public void TestMethod()
+    public static IEnumerable<T> DoubleEnumerationMethod<T>(IEnumerable<T> source)
     {
-        throw new NotImplementedException();
+
+        var firstEnumeration = source.ToList();
+        var secondEnumeration = source.ToList();
+        return firstEnumeration;
+    }
+
+    public static IEnumerable<T> NoDoubleEnumerationMethod<T>(IEnumerable<T> source)
+    {
+        var firstEnumeration = source.ToList();
+        return firstEnumeration;
     }
 }

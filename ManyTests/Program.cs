@@ -2,7 +2,7 @@
 
 public class Program
 {
-    public static void Main()
+    public static void Prog()
     {
         // Добавить вызов тестов
         return;

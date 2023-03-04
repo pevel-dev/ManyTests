@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using NUnit.Framework;
-
+using NUnit.Framework.Internal;
 namespace ManyTests;
 
 [TestFixture]
@@ -21,13 +21,26 @@ public class Tests
         }
     }
 
+
+
     [Test]
-    public void DoubleEnumerable<T>(Func<IEnumerable<T>, IEnumerable<T>> testMethod)
+    public void DetectDoubleEnumeration()
+    {
+        var result = MethodHasDoubleEnumerable<int>(TestMethods.DoubleEnumerationMethod);
+        Assert.IsTrue(result);
+    }
+    
+    [Test]
+    public void NoTriggerForOnceEnumeration()
+    {
+        var result = MethodHasDoubleEnumerable<int>(TestMethods.NoDoubleEnumerationMethod);
+        Assert.IsFalse(result);
+    }
+    
+    private bool MethodHasDoubleEnumerable<T>(Func<IEnumerable<T>, IEnumerable<T>> testMethod)
     {
         var fakeEnumerable = new FakeEnumerable<T>();
         testMethod(fakeEnumerable);
-        if (fakeEnumerable.EnumerationCount > 1)
-            Assert.Fail("Double enumeration!");
-        Assert.Pass();
+        return fakeEnumerable.EnumerationCount > 1;
     }
 }
